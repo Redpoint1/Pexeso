@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 452
+  Left = 412
   Height = 420
-  Top = 78
+  Top = 112
   Width = 640
   Caption = 'Form1'
   ClientHeight = 420
@@ -14,6 +14,7 @@ object Form1: TForm1
     Height = 420
     Top = 0
     Width = 640
+    AutoSize = True
     OnMouseUp = Image1MouseUp
     Transparent = True
   end
@@ -88,7 +89,7 @@ object Form1: TForm1
     Height = 17
     Top = 216
     Width = 65
-    Caption = 'Tahov:'
+    Caption = 'Ťahov:'
     TabOrder = 6
     Visible = False
   end
@@ -118,7 +119,7 @@ object Form1: TForm1
     Top = 264
     Width = 65
     Alignment = taCenter
-    Caption = 'Cas:'
+    Caption = 'Čas:'
     TabOrder = 9
     Visible = False
   end

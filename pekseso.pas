@@ -55,9 +55,9 @@ var
   Form1: TForm1;
   Pexeso: TPlocha;
   Obr, Obr1: TBitmap;
-  Povolenie : boolean;
+  Povolenie, HrajeSa : boolean;
   Cas: Integer;
-  Nastavenie: array[1..3] of integer;
+  Info: array[1..3] of integer;
 
 implementation
 
@@ -70,7 +70,8 @@ Uses
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  povolenie:= False;
+  Povolenie:= False;
+  HrajeSa:= False;
   Obr := TBitmap.Create;
   with Image1.Canvas do
   begin
@@ -78,8 +79,9 @@ begin
    Obr.LoadFromFile('img/logo.bmp');
    Draw(200, 150, Obr);
    Font.Style := [fsBold];
-   TextOut(Image1.Width-100, Image1.Height-15, 'Richard Rozar');
+   TextOut(Image1.Width-100, Image1.Height-15, 'Richard Rožár');
    Obr.Free;
+   Info[1] := 120;
   end;
 end;
 
@@ -123,12 +125,12 @@ begin
    begin
     Pexeso.Odber(pom, Image1.Canvas);
     pocet:= 0;
-    Nastavenie[3] := Nastavenie[3]+2;
-    if Nastavenie[3] = 24 then
+    Info[3] := Info[3]+2;
+    if Info[3] = 24 then
      begin
       Timer2.Enabled:=False;
       Button4.Enabled:=False;
-      ShowMessage('Vyhrali ste, SKORE: ' + IntToStr(Nastavenie[2]+1));
+      ShowMessage('Vyhrali ste, SKORE: ' + IntToStr(Info[2]+1));
      end;
    end
   else
@@ -137,14 +139,22 @@ begin
     pocet:= 0;
    end;
    povolenie := True;
-   Nastavenie[2] := Nastavenie[2] +1;
-   Edit1.Text := inttostr(Nastavenie[2]);
+   Info[2] := Info[2] +1;
+   Edit1.Text := inttostr(Info[2]);
 end;
 
 procedure TForm1.Timer2Timer(Sender: TObject);
 begin
-  Nastavenie[1] := Nastavenie[1]-1;
-  Edit3.Text := inttostr(Nastavenie[1]);
+  Info[1] := Info[1]-1;
+  Edit3.Text := inttostr(Info[1]);
+  if Info[1] = 0 then
+   begin
+    Button2.Enabled:= False;
+    Button4.Enabled:= False;
+    Povolenie:= False;
+    Timer2.Enabled:= False;
+    ShowMessage('Čas uplynul prehrali ste!');
+   end;
 end;
 
 procedure TForm1.TrackBar1Change(Sender: TObject);
@@ -157,10 +167,12 @@ procedure TForm1.Button1Click(Sender: TObject);
 begin
   Image1.Canvas.FillRect(Image1.ClientRect);
   Povolenie := True;
+  HrajeSa:= True;
   Edit1.Visible:= True;
   Edit3.Visible:= True;
   StaticText1.Visible := True;
   StaticText2.Visible := True;
+  Button2.Enabled:= True;
   Button4.Visible  := True;
   Button4.Enabled  := True;
   Obr1:= Tbitmap.Create;
@@ -168,9 +180,8 @@ begin
   Pexeso.Nakresli(Image1.Canvas, Obr1);
   Pexeso.Zamiesaj;
   Pexeso.Napoveda(Image1.Canvas);
-  Nastavenie[1] := 120;
-  Nastavenie[2] := 0;
-  Nastavenie[3] := 0;
+  Info[2] := 0;
+  Info[3] := 0;
   Casovac;
 end;
 
@@ -183,7 +194,7 @@ begin
   Edit2.Text:= IntToStr(Timer1.Interval);
   Edit3.Visible:= False;
   Edit4.Visible:= True;
-  Edit4.Text:= IntToStr(Nastavenie[1]);
+  Edit4.Text:= IntToStr(Info[1]);
   StaticText1.Visible := False;
   StaticText2.Visible := False;
   StaticText3.Visible := True;
@@ -207,11 +218,14 @@ Nasiel1: boolean;
 begin
 Image1.Canvas.FillRect(Image1.ClientRect);
   Povolenie := True;
+  HrajeSa:= True;
   Edit1.Visible:= True;
   Edit3.Visible:= True;
   StaticText1.Visible := True;
   StaticText2.Visible := True;
-  Button4.Visible  := True;
+  Button2.Enabled:= True;
+  Button4.Visible:= True;
+  Button4.Enabled:= True;
   Casovac;
   Obr1:= Tbitmap.Create;
   Obr1.LoadFromFile('img/karta.bmp');
@@ -230,74 +244,85 @@ Image1.Canvas.FillRect(Image1.ClientRect);
       Karta[i][j].Najdene:= Nasiel1;
      end;
    for i:= 1 to 3 do
-     readln(Subor, Nastavenie[i]);
+     readln(Subor, Info[i]);
   closefile(subor);
   Pexeso.VymazNacitane(Image1.Canvas);
-  Edit1.Text:=IntToStr(Nastavenie[2]);
-  Edit3.Text:=IntToStr(Nastavenie[1]);
+  Edit1.Text:=IntToStr(Info[2]);
+  Edit3.Text:=IntToStr(Info[1]);
 end;
 
 procedure TForm1.Button4Click(Sender: TObject);
 var
 i,j: integer;
 begin
-  if Nastavenie[3] < 24 then
+  if Info[3] < 24 then
    begin
     Memo1.Clear;
     for j := 0 to 3 do
      for i := 0 to 5 do
       begin
        Memo1.Lines.Append(inttostr(Karta[j][i].Typ));
-        Memo1.Lines.Append(BoolToStr(Karta[j][i].Najdene));
+       Memo1.Lines.Append(BoolToStr(Karta[j][i].Najdene));
       end;
     for i:=1 to 3 do
-     Memo1.Lines.Append(inttostr(Nastavenie[i]));
+     Memo1.Lines.Append(inttostr(Info[i]));
     Memo1.Lines.SaveToFile('save.txt');
-    ShowMessage('Uspesne ulozene');
+    ShowMessage('Úšpešne uložené');
    end
   else
-   ShowMessage('Neda sa ulozit');
+   ShowMessage('Nedá sa uložiť');
 end;
 
 procedure TForm1.Button5Click(Sender: TObject);
 begin
   Image1.Canvas.FillRect(Image1.ClientRect);
-  Povolenie := True;
-  Edit1.Visible:= True;
   Edit2.Visible:= False;
-  Edit3.Visible:= True;
   Edit4.Visible:= False;
-  StaticText1.Visible := True;
-  StaticText2.Visible := True;
   StaticText3.Visible := False;
   StaticText4.Visible := False;
   TrackBar1.Visible:= False;
   CheckBox1.Visible:= False;
   Button1.Enabled:= True;
   Button3.Enabled:= True;
-  Button4.Visible:= True;
   Button5.Visible:= False;
-  Obr1:= Tbitmap.Create;
-  Obr1.LoadFromFile('img/karta.bmp');
-  Pexeso.Nakresli(Image1.Canvas, Obr1);
-  Pexeso.VymazNacitane(Image1.Canvas);
-  Edit1.Text:=IntToStr(Nastavenie[2]);
-  Edit3.Text:=IntToStr(Nastavenie[1]);
-  Casovac;
+  Info[1]:= StrToInt(Edit4.Text);
+  Edit1.Text:=IntToStr(Info[2]);
+  Edit3.Text:=IntToStr(Info[1]);
+  if HrajeSa then
+   begin
+    Povolenie := True;
+    Edit1.Visible:= True;
+    Edit3.Visible:= True;
+    StaticText1.Visible := True;
+    StaticText2.Visible := True;
+    Button4.Visible:= True;
+    Obr1:= Tbitmap.Create;
+    Obr1.LoadFromFile('img/karta.bmp');
+    Pexeso.Nakresli(Image1.Canvas, Obr1);
+    Pexeso.VymazNacitane(Image1.Canvas);
+    Casovac;
+   end
+  else
+   begin
+    povolenie:= False;
+    Obr := TBitmap.Create;
+    with Image1.Canvas do
+     begin
+      FillRect(Image1.clientRect);
+      Obr.LoadFromFile('img/logo.bmp');
+      Draw(200, 150, Obr);
+      TextOut(Image1.Width-100, Image1.Height-15, 'Richard Rožár');
+      Obr.Free;
+    end;
+   end;
 end;
 
 procedure TForm1.CheckBox1Change(Sender: TObject);
 begin
   if CheckBox1.Checked then
-   begin
-    Edit4.Enabled:= True;
-    Edit4.ReadOnly:= True;
-   end
+    Edit4.Enabled:= True
   else
-   begin
     Edit4.Enabled:= False;
-    Edit4.ReadOnly:= False;
-   end;
 end;
 
 procedure TForm1.Casovac;
