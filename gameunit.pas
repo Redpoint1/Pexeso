@@ -13,7 +13,7 @@ type
     Typ: integer;
     Zobrazene, Najdene: boolean;
   end;
-  TKarty = array[0..3] of array[0..5] of TKarta;
+  TKarty = array[0..4] of array[0..9] of TKarta;
 
 
 
@@ -54,11 +54,11 @@ procedure TPlocha.Vytvor;
 var
   i, j: integer;
 begin
-  for j := 0 to 3 do
+  for j := 0 to 4 do
   begin
-    for i := 0 to 5 do
+    for i := 0 to 9 do
     begin
-      Karta[j][i].Typ := (j * 6 + i) div 2;
+      Karta[j][i].Typ := (j*10+i) div 2;
       Karta[j][i].Zobrazene := False;
       Karta[j][i].Najdene := False;
     end;
@@ -73,11 +73,11 @@ var
 begin
   Vytvor;
   randomize;
-  for y := 0 to 3 do
-    for x := 0 to 5 do
+  for y := 0 to 4 do
+    for x := 0 to 9 do
     begin
-      rand_x := random(5);
-      rand_y := random(3);
+      rand_x := random(9);
+      rand_y := random(4);
       pomocna := Karta[y][x].Typ;
       Karta[y][x].Typ := Karta[rand_y][rand_x].Typ;
       Karta[rand_y][rand_x].Typ := pomocna;
@@ -89,10 +89,10 @@ var
   X, Y: integer;
 begin
   Y := 0;
-  while Y < 4 do
+  while Y < 5 do
   begin
     X := 0;
-    while X < 6 do
+    while X < 10 do
     begin
       Image.Draw(X*80+5, Y*100+5, Bmp);
       Inc(X);
@@ -112,8 +112,8 @@ var
   i,j: integer;
 begin
   Image.Pen.Color:=clWhite;
-  for i := 0 to 3 do
-   for j:=0 to 5 do
+  for i:=0 to 4 do
+   for j:=0 to 9 do
     begin
       if Karta[i][j].Typ = Card then
       begin
@@ -129,8 +129,8 @@ var
   i, j: integer;
   Bmp: TBitmap;
 begin
-  for i := 0 to 3 do
-    for j := 0 to 5 do
+  for i := 0 to 4 do
+    for j := 0 to 9 do
     begin
       if Karta[i][j].Zobrazene = True then
       begin
@@ -152,8 +152,8 @@ procedure TPlocha.Napoveda(Image: TCanvas);
 var
   i,j: integer;
 begin
-  for i:=0 to 3 do
-   for j:=0 to 5 do
+  for i:=0 to 4 do
+   for j:=0 to 9 do
   Image.TextOut((j * 80) + 5, (i * 100) + 5, inttostr(Karta[i][j].Typ));
 end;
 
@@ -172,8 +172,8 @@ var
   i,j: integer;
 begin
   Image.Pen.Color:=clWhite;
-  for i := 0 to 3 do
-   for j:=0 to 5 do
+  for i:=0 to 4 do
+   for j:=0 to 9 do
     begin
       if Karta[i][j].Najdene then
       begin

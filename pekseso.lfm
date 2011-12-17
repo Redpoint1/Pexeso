@@ -1,25 +1,25 @@
 object Form1: TForm1
-  Left = 412
-  Height = 420
-  Top = 112
-  Width = 640
+  Left = 269
+  Height = 512
+  Top = 150
+  Width = 936
   Caption = 'Form1'
-  ClientHeight = 420
-  ClientWidth = 640
+  ClientHeight = 512
+  ClientWidth = 936
   Color = clWhite
   OnCreate = FormCreate
   LCLVersion = '0.9.30'
   object Image1: TImage
     Left = 0
-    Height = 420
+    Height = 512
     Top = 0
-    Width = 640
+    Width = 936
     AutoSize = True
     OnMouseUp = Image1MouseUp
     Transparent = True
   end
   object Button1: TButton
-    Left = 528
+    Left = 832
     Height = 25
     Top = 40
     Width = 75
@@ -28,7 +28,7 @@ object Form1: TForm1
     TabOrder = 0
   end
   object Button2: TButton
-    Left = 528
+    Left = 832
     Height = 25
     Top = 88
     Width = 75
@@ -37,7 +37,7 @@ object Form1: TForm1
     TabOrder = 1
   end
   object Button3: TButton
-    Left = 528
+    Left = 832
     Height = 25
     Top = 136
     Width = 75
@@ -46,7 +46,7 @@ object Form1: TForm1
     TabOrder = 2
   end
   object Button4: TButton
-    Left = 528
+    Left = 832
     Height = 25
     Top = 184
     Width = 75
@@ -56,9 +56,9 @@ object Form1: TForm1
     Visible = False
   end
   object Memo1: TMemo
-    Left = 592
+    Left = 896
     Height = 24
-    Top = 352
+    Top = 440
     Width = 24
     Lines.Strings = (
       'M'
@@ -76,16 +76,15 @@ object Form1: TForm1
     Height = 25
     Top = 48
     Width = 100
-    Frequency = 100
-    Max = 2500
-    Min = 100
+    Max = 20
+    Min = 1
     OnChange = TrackBar1Change
-    Position = 1000
+    Position = 20
     TabOrder = 5
     Visible = False
   end
   object StaticText1: TStaticText
-    Left = 544
+    Left = 840
     Height = 17
     Top = 216
     Width = 65
@@ -94,9 +93,9 @@ object Form1: TForm1
     Visible = False
   end
   object Edit1: TEdit
-    Left = 544
+    Left = 848
     Height = 23
-    Top = 232
+    Top = 240
     Width = 40
     Alignment = taCenter
     ReadOnly = True
@@ -114,9 +113,9 @@ object Form1: TForm1
     Visible = False
   end
   object StaticText2: TStaticText
-    Left = 528
+    Left = 815
     Height = 17
-    Top = 264
+    Top = 272
     Width = 65
     Alignment = taCenter
     Caption = 'Čas:'
@@ -124,9 +123,9 @@ object Form1: TForm1
     Visible = False
   end
   object Edit3: TEdit
-    Left = 544
+    Left = 848
     Height = 23
-    Top = 280
+    Top = 296
     Width = 40
     Alignment = taCenter
     ReadOnly = True
@@ -135,9 +134,9 @@ object Form1: TForm1
     Visible = False
   end
   object Button5: TButton
-    Left = 224
+    Left = 336
     Height = 25
-    Top = 341
+    Top = 440
     Width = 75
     Caption = 'OK'
     OnClick = Button5Click
@@ -186,13 +185,13 @@ object Form1: TForm1
   object Timer1: TTimer
     Enabled = False
     OnTimer = Timer1Timer
-    left = 592
-    top = 384
+    left = 896
+    top = 472
   end
   object Timer2: TTimer
     Enabled = False
     OnTimer = Timer2Timer
-    left = 552
-    top = 384
+    left = 864
+    top = 472
   end
 end

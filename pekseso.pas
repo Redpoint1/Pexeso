@@ -92,7 +92,7 @@ begin
     begin
     x := (x - 5) div 80;
     y := (y - 5) div 100;
-    if (X < 6) and (Y < 4) then
+    if (X < 10) and (Y < 5) then
     begin
       if not(Karta[y][x].Najdene) then
       begin
@@ -126,7 +126,7 @@ begin
     Pexeso.Odber(pom, Image1.Canvas);
     pocet:= 0;
     Info[3] := Info[3]+2;
-    if Info[3] = 24 then
+    if Info[3] = 50 then
      begin
       Timer2.Enabled:=False;
       Button4.Enabled:=False;
@@ -159,8 +159,8 @@ end;
 
 procedure TForm1.TrackBar1Change(Sender: TObject);
 begin
- Timer1.Interval := TrackBar1.Position;
- Edit2.Text := inttostr(TrackBar1.Position);
+ Timer1.Interval := TrackBar1.Position*100;
+ Edit2.Text := inttostr(TrackBar1.Position*100);
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
@@ -200,7 +200,7 @@ begin
   StaticText3.Visible := True;
   StaticText4.Visible := True;
   TrackBar1.Visible:= True;
-  TrackBar1.Position:= Timer1.Interval;
+  TrackBar1.Position:= Timer1.Interval div 100;
   CheckBox1.Visible:= True;
   Button1.Enabled:= False;
   Button3.Enabled:= False;
@@ -233,8 +233,8 @@ Image1.Canvas.FillRect(Image1.ClientRect);
 
   AssignFile(Subor, 'save.txt');
   reset(subor);
-   for i:= 0 to 3 do
-    for j:= 0 to 5 do
+   for i:= 0 to 4 do
+    for j:= 0 to 9 do
      begin
       readln(Subor, Obrazok);
       readln(Subor, Nasiel);
@@ -255,11 +255,11 @@ procedure TForm1.Button4Click(Sender: TObject);
 var
 i,j: integer;
 begin
-  if Info[3] < 24 then
+  if Info[3] < 50 then
    begin
     Memo1.Clear;
-    for j := 0 to 3 do
-     for i := 0 to 5 do
+    for j := 0 to 4 do
+     for i := 0 to 9 do
       begin
        Memo1.Lines.Append(inttostr(Karta[j][i].Typ));
        Memo1.Lines.Append(BoolToStr(Karta[j][i].Najdene));
