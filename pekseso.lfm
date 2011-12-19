@@ -15,7 +15,7 @@ object Form1: TForm1
     Top = 0
     Width = 936
     AutoSize = True
-    OnMouseUp = Image1MouseUp
+    OnMouseDown = Image1MouseDown
     Transparent = True
   end
   object Button1: TButton
@@ -55,22 +55,6 @@ object Form1: TForm1
     TabOrder = 3
     Visible = False
   end
-  object Memo1: TMemo
-    Left = 896
-    Height = 24
-    Top = 440
-    Width = 24
-    Lines.Strings = (
-      'M'
-      'e'
-      'm'
-      'o'
-      '1'
-    )
-    ReadOnly = True
-    TabOrder = 4
-    Visible = False
-  end
   object TrackBar1: TTrackBar
     Left = 72
     Height = 25
@@ -80,7 +64,7 @@ object Form1: TForm1
     Min = 1
     OnChange = TrackBar1Change
     Position = 20
-    TabOrder = 5
+    TabOrder = 4
     Visible = False
   end
   object StaticText1: TStaticText
@@ -89,7 +73,7 @@ object Form1: TForm1
     Top = 216
     Width = 65
     Caption = 'Ťahov:'
-    TabOrder = 6
+    TabOrder = 5
     Visible = False
   end
   object Edit1: TEdit
@@ -99,7 +83,7 @@ object Form1: TForm1
     Width = 40
     Alignment = taCenter
     ReadOnly = True
-    TabOrder = 7
+    TabOrder = 6
     Text = '0'
     Visible = False
   end
@@ -108,7 +92,7 @@ object Form1: TForm1
     Height = 23
     Top = 48
     Width = 40
-    TabOrder = 8
+    TabOrder = 7
     Text = '1000'
     Visible = False
   end
@@ -119,7 +103,7 @@ object Form1: TForm1
     Width = 65
     Alignment = taCenter
     Caption = 'Čas:'
-    TabOrder = 9
+    TabOrder = 8
     Visible = False
   end
   object Edit3: TEdit
@@ -129,7 +113,7 @@ object Form1: TForm1
     Width = 40
     Alignment = taCenter
     ReadOnly = True
-    TabOrder = 10
+    TabOrder = 9
     Text = '120'
     Visible = False
   end
@@ -140,7 +124,7 @@ object Form1: TForm1
     Width = 75
     Caption = 'OK'
     OnClick = Button5Click
-    TabOrder = 11
+    TabOrder = 10
     Visible = False
   end
   object StaticText3: TStaticText
@@ -149,7 +133,7 @@ object Form1: TForm1
     Top = 31
     Width = 105
     Caption = 'Zobrazenie Karty:'
-    TabOrder = 12
+    TabOrder = 11
     Visible = False
   end
   object Edit4: TEdit
@@ -157,7 +141,7 @@ object Form1: TForm1
     Height = 23
     Top = 104
     Width = 80
-    TabOrder = 13
+    TabOrder = 12
     Text = '120'
     Visible = False
   end
@@ -170,7 +154,7 @@ object Form1: TForm1
     Checked = True
     OnChange = CheckBox1Change
     State = cbChecked
-    TabOrder = 14
+    TabOrder = 13
     Visible = False
   end
   object StaticText4: TStaticText
@@ -179,7 +163,7 @@ object Form1: TForm1
     Top = 88
     Width = 25
     Caption = 'Čas:'
-    TabOrder = 15
+    TabOrder = 14
     Visible = False
   end
   object Timer1: TTimer

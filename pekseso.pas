@@ -24,7 +24,6 @@ type
     Edit3: TEdit;
     Edit4: TEdit;
     Image1: TImage;
-    Memo1: TMemo;
     StaticText1: TStaticText;
     StaticText2: TStaticText;
     StaticText3: TStaticText;
@@ -39,7 +38,7 @@ type
     procedure Button5Click(Sender: TObject);
     procedure CheckBox1Change(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
+    procedure Image1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure Timer1Timer(Sender: TObject);
     procedure Timer2Timer(Sender: TObject);
@@ -77,7 +76,7 @@ begin
   begin
    FillRect(Image1.clientRect);
    Obr.LoadFromFile('img/logo.bmp');
-   Draw(200, 150, Obr);
+   Draw((Image1.Width - Obr.Width) div 2, Image1.Height div 2 - Obr.Height, Obr);
    Font.Style := [fsBold];
    TextOut(Image1.Width-100, Image1.Height-15, 'Richard Rožár');
    Obr.Free;
@@ -85,36 +84,36 @@ begin
   end;
 end;
 
-procedure TForm1.Image1MouseUp(Sender: TObject; Button: TMouseButton;
+procedure TForm1.Image1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  if povolenie then
-    begin
+  if povolenie and (Shift = [ssLeft]) then
+   begin
     x := (x - 5) div 80;
     y := (y - 5) div 100;
     if (X < 10) and (Y < 5) then
-    begin
+     begin
       if not(Karta[y][x].Najdene) then
-      begin
-       if Karta[y][x].Zobrazene = false then
        begin
+       if Karta[y][x].Zobrazene = false then
+        begin
         pocet := pocet + 1;
         Pexeso.Ukaz(Karta[y][x].Typ,X,Y,Image1.Canvas);
-       end;
+        end;
        if pocet=1 then
-       begin
+        begin
         pom := Karta[y][x].Typ;
         Karta[y][x].Zobrazene := True;
-       end;
+        end;
        if (pocet = 2) and (Karta[y][x].Zobrazene = false)then
-       begin
+        begin
         povolenie:= False;
         pom1 := Karta[y][x].Typ;
         Karta[y][x].Zobrazene := True;
         Timer1.Enabled := True;
+        end;
        end;
-      end;
-    end;
+     end;
   end;
 end;
 
@@ -180,6 +179,7 @@ begin
   Pexeso.Nakresli(Image1.Canvas, Obr1);
   Pexeso.Zamiesaj;
   Pexeso.Napoveda(Image1.Canvas);
+  Info[1] := 120;
   Info[2] := 0;
   Info[3] := 0;
   Casovac;
@@ -212,61 +212,66 @@ end;
 procedure TForm1.Button3Click(Sender: TObject);
 var
 Subor: TextFile;
-i,j: integer;
-Obrazok, Nasiel: String;
-Nasiel1: boolean;
+i,j,Obrazok: integer;
+Nasiel: string;
 begin
-Image1.Canvas.FillRect(Image1.ClientRect);
-  Povolenie := True;
-  HrajeSa:= True;
-  Edit1.Visible:= True;
-  Edit3.Visible:= True;
-  StaticText1.Visible := True;
-  StaticText2.Visible := True;
-  Button2.Enabled:= True;
-  Button4.Visible:= True;
-  Button4.Enabled:= True;
-  Casovac;
-  Obr1:= Tbitmap.Create;
-  Obr1.LoadFromFile('img/karta.bmp');
-  Pexeso.Nakresli(Image1.Canvas, Obr1);
+  if FileExists('save.txt') then
+   begin
+    Image1.Canvas.FillRect(Image1.ClientRect);
+    Povolenie := True;
+    HrajeSa:= True;
+    Edit1.Visible:= True;
+    Edit3.Visible:= True;
+    StaticText1.Visible := True;
+    StaticText2.Visible := True;
+    Button2.Enabled:= True;
+    Button4.Visible:= True;
+    Button4.Enabled:= True;
+    Casovac;
+    Obr1:= Tbitmap.Create;
+    Obr1.LoadFromFile('img/karta.bmp');
+    Pexeso.Nakresli(Image1.Canvas, Obr1);
 
-  AssignFile(Subor, 'save.txt');
-  reset(subor);
-   for i:= 0 to 4 do
-    for j:= 0 to 9 do
-     begin
-      readln(Subor, Obrazok);
-      readln(Subor, Nasiel);
-      Nasiel1:=strtobool(Nasiel);
-      Karta[i][j].Typ:= strtoint(Obrazok);
-      Karta[i][j].Zobrazene:= False;
-      Karta[i][j].Najdene:= Nasiel1;
-     end;
-   for i:= 1 to 3 do
-     readln(Subor, Info[i]);
-  closefile(subor);
-  Pexeso.VymazNacitane(Image1.Canvas);
-  Edit1.Text:=IntToStr(Info[2]);
-  Edit3.Text:=IntToStr(Info[1]);
+    AssignFile(Subor, 'save.txt');
+    Reset(subor);
+     for i:= 0 to 4 do
+      for j:= 0 to 9 do
+       begin
+        Read(Subor, Obrazok);
+        ReadLn(Subor, Nasiel);
+        Karta[i][j].Typ:= Obrazok;
+        Karta[i][j].Zobrazene:= False;
+        Karta[i][j].Najdene:= StrToBool(Nasiel);
+       end;
+     for i:= 1 to 3 do
+       Read(Subor, Info[i]);
+    CloseFile(subor);
+    Pexeso.VymazNacitane(Image1.Canvas);
+    Edit1.Text:=IntToStr(Info[2]);
+    Edit3.Text:=IntToStr(Info[1]);
+   end
+  else
+  ShowMessage('Nenašla sa uložená požícia!');
 end;
 
 procedure TForm1.Button4Click(Sender: TObject);
 var
 i,j: integer;
+Subor: TextFile;
 begin
   if Info[3] < 50 then
    begin
-    Memo1.Clear;
+    AssignFile(Subor, 'save.txt');
+    rewrite(Subor);
     for j := 0 to 4 do
      for i := 0 to 9 do
       begin
-       Memo1.Lines.Append(inttostr(Karta[j][i].Typ));
-       Memo1.Lines.Append(BoolToStr(Karta[j][i].Najdene));
+       write(Subor, Karta[j][i].Typ, ' ');
+       writeln(Subor, BoolToStr(Karta[j][i].Najdene));
       end;
     for i:=1 to 3 do
-     Memo1.Lines.Append(inttostr(Info[i]));
-    Memo1.Lines.SaveToFile('save.txt');
+     write(Subor, Info[i], ' ');
+    CloseFile(Subor);
     ShowMessage('Úšpešne uložené');
    end
   else
@@ -310,7 +315,7 @@ begin
      begin
       FillRect(Image1.clientRect);
       Obr.LoadFromFile('img/logo.bmp');
-      Draw(200, 150, Obr);
+      Draw((Image1.Width - Obr.Width) div 2, Image1.Height div 2 - Obr.Height, Obr);
       TextOut(Image1.Width-100, Image1.Height-15, 'Richard Rožár');
       Obr.Free;
     end;
