@@ -1,14 +1,14 @@
 object Form1: TForm1
   Left = 269
-  Height = 512
-  Top = 150
+  Height = 513
+  Top = 149
   Width = 936
   Caption = 'Form1'
-  ClientHeight = 512
+  ClientHeight = 513
   ClientWidth = 936
   Color = clWhite
   OnCreate = FormCreate
-  LCLVersion = '0.9.30'
+  LCLVersion = '0.9.30.2'
   object Image1: TImage
     Left = 0
     Height = 512
@@ -58,12 +58,12 @@ object Form1: TForm1
   object TrackBar1: TTrackBar
     Left = 72
     Height = 25
-    Top = 48
+    Top = 46
     Width = 100
     Max = 20
     Min = 1
     OnChange = TrackBar1Change
-    Position = 20
+    Position = 10
     TabOrder = 4
     Visible = False
   end
@@ -118,7 +118,7 @@ object Form1: TForm1
     Visible = False
   end
   object Button5: TButton
-    Left = 336
+    Left = 376
     Height = 25
     Top = 440
     Width = 75
@@ -164,6 +164,35 @@ object Form1: TForm1
     Width = 25
     Caption = 'Čas:'
     TabOrder = 14
+    Visible = False
+  end
+  object Button7: TButton
+    Left = 560
+    Height = 25
+    Top = 64
+    Width = 123
+    Caption = 'Uložiť  nastavenie'
+    OnClick = Button7Click
+    TabOrder = 15
+    Visible = False
+  end
+  object StaticText5: TStaticText
+    Left = 376
+    Height = 17
+    Top = 8
+    Width = 65
+    Caption = 'Nastavenie:'
+    TabOrder = 16
+    Visible = False
+  end
+  object Button6: TButton
+    Left = 560
+    Height = 25
+    Top = 31
+    Width = 123
+    Caption = 'Nahrať nastavenie'
+    OnClick = Button6Click
+    TabOrder = 17
     Visible = False
   end
   object Timer1: TTimer

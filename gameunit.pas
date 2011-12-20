@@ -5,7 +5,7 @@ unit GameUnit;
 interface
 
 uses
-  Classes, SysUtils, Graphics;
+  Classes, SysUtils, Graphics, Dialogs;
 
 type
 
@@ -15,19 +15,17 @@ type
   end;
   TKarty = array[0..4] of array[0..9] of TKarta;
 
-
-
 var
   Karta: TKarty;
   pocet, pom, pom1, X, Y: integer;
+  Info: array[1..3] of integer;
+  Nastavenie: array[1..3] of String;
 
 { TPlocha }
 type
 
   TPlocha = class
-    constructor Create;
-    procedure Nakresli(Image: TCanvas; Bmp: TBitmap);
-    procedure Vymaz(A: TCanvas);
+    procedure Nakresli(Image: TCanvas);
     procedure Vytvor;
     procedure Zamiesaj;
     procedure Odber(Card: Integer; Image: TCanvas);
@@ -35,20 +33,14 @@ type
     procedure Napoveda(Image: TCanvas);
     procedure Ukaz(Card,X,Y: Integer; Image: TCanvas);
     procedure VymazNacitane(Image: TCanvas);
+    procedure Uloz;
+    procedure Uloz(Mode: Integer);
+    Procedure Nahraj;
+    Procedure Nahraj(Mode: Integer);
     function Parny(a,b : Integer): boolean;
-
   end;
 
 implementation
-
-
-
-{ TPlocha }
-
-constructor TPlocha.Create;
-begin
-  pocet := 0;
-end;
 
 procedure TPlocha.Vytvor;
 var
@@ -84,10 +76,13 @@ begin
     end;
 end;
 
-procedure TPlocha.Nakresli(Image: TCanvas; Bmp: TBitmap);
+procedure TPlocha.Nakresli(Image: TCanvas);
 var
   X, Y: integer;
+  Bmp: TBitmap;
 begin
+  Bmp:= Tbitmap.Create;
+  Bmp.LoadFromFile('img/karta.bmp');
   Y := 0;
   while Y < 5 do
   begin
@@ -100,11 +95,6 @@ begin
     Inc(Y);
   end;
   Bmp.Free;
-end;
-
-procedure TPlocha.Vymaz(A: TCanvas);
-begin
-
 end;
 
 procedure TPlocha.Odber(Card:Integer; Image:TCanvas);
@@ -180,6 +170,65 @@ begin
       Image.Rectangle(j * 80 + 5, i * 100 + 5, j * 80 + 85, i * 100 + 105);
       end;
     end;
+end;
+
+procedure TPlocha.Uloz;
+var
+  Subor: TextFile;
+  i,j: Integer;
+begin
+  if Info[3] < 50 then
+   begin
+    AssignFile(Subor, 'save.txt');
+    rewrite(Subor);
+    for j := 0 to 4 do
+     for i := 0 to 9 do
+      begin
+       write(Subor, Karta[j][i].Typ, ' ');
+       writeln(Subor, BoolToStr(Karta[j][i].Najdene));
+      end;
+    for i:=1 to 3 do
+     write(Subor, Info[i], ' ');
+    CloseFile(Subor);
+    ShowMessage('Úšpešne uložené');
+      end
+  else
+   ShowMessage('Nedá sa uložiť');
+end;
+
+procedure TPlocha.Uloz(Mode: Integer);
+var
+  Subor: TextFile;
+begin
+ //nic
+end;
+
+procedure TPlocha.Nahraj;
+var
+  Subor: TextFile;
+  Nasiel: string;
+  i,j,Obrazok: Integer;
+
+begin
+  AssignFile(Subor, 'save.txt');
+  Reset(Subor);
+   for i:= 0 to 4 do
+    for j:= 0 to 9 do
+     begin
+      Read(Subor, Obrazok);
+      ReadLn(Subor, Nasiel);
+      Karta[i][j].Typ:= Obrazok;
+      Karta[i][j].Zobrazene:= False;
+      Karta[i][j].Najdene:= StrToBool(Nasiel);
+     end;
+   for i:= 1 to 3 do
+     Read(Subor, Info[i]);
+  CloseFile(subor);
+end;
+
+procedure TPlocha.Nahraj(Mode: Integer);
+begin
+  //nic
 end;
 
 end.

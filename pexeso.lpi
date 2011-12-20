@@ -34,12 +34,15 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="10">
+    <Units Count="11">
       <Unit0>
         <Filename Value="pexeso.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="pexeso"/>
-        <UsageCount Value="61"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="69"/>
       </Unit0>
       <Unit1>
         <Filename Value="pekseso.pas"/>
@@ -50,9 +53,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="71"/>
-        <CursorPos X="28" Y="81"/>
-        <UsageCount Value="61"/>
+        <TopLine Value="322"/>
+        <CursorPos X="25" Y="334"/>
+        <UsageCount Value="69"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -62,21 +65,18 @@
         <UnitName Value="GameUnit"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="32"/>
-        <CursorPos X="51" Y="95"/>
-        <UsageCount Value="61"/>
+        <TopLine Value="1"/>
+        <CursorPos X="36" Y="22"/>
+        <UsageCount Value="69"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="settingunit.pas"/>
-        <IsPartOfProject Value="True"/>
         <UnitName Value="SettingUnit"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2"/>
         <CursorPos X="5" Y="16"/>
-        <UsageCount Value="61"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="62"/>
       </Unit3>
       <Unit4>
         <Filename Value="C:\lazarus\lcl\graphics.pp"/>
@@ -103,8 +103,8 @@
       <Unit7>
         <Filename Value="C:\lazarus\lcl\include\control.inc"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="3176"/>
-        <CursorPos X="46" Y="3176"/>
+        <TopLine Value="2275"/>
+        <CursorPos X="1" Y="2288"/>
         <UsageCount Value="10"/>
       </Unit7>
       <Unit8>
@@ -122,124 +122,127 @@
         <CursorPos X="1" Y="248"/>
         <UsageCount Value="10"/>
       </Unit9>
+      <Unit10>
+        <Filename Value="plochaunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="PlochaUnit"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="27"/>
+        <Loaded Value="True"/>
+      </Unit10>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="27" HistoryIndex="26">
       <Position1>
-        <Filename Value="pekseso.pas"/>
-        <Caret Line="352" Column="17" TopLine="330"/>
+        <Filename Value="gameunit.pas"/>
+        <Caret Line="8" Column="39" TopLine="1"/>
       </Position1>
       <Position2>
-        <Filename Value="pekseso.pas"/>
-        <Caret Line="353" Column="11" TopLine="331"/>
+        <Filename Value="gameunit.pas"/>
+        <Caret Line="208" Column="3" TopLine="195"/>
       </Position2>
       <Position3>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="354" Column="35" TopLine="333"/>
+        <Caret Line="295" Column="1" TopLine="293"/>
       </Position3>
       <Position4>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="359" Column="1" TopLine="333"/>
+        <Caret Line="294" Column="1" TopLine="292"/>
       </Position4>
       <Position5>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="285" Column="9" TopLine="279"/>
+        <Caret Line="293" Column="1" TopLine="292"/>
       </Position5>
       <Position6>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="284" Column="9" TopLine="278"/>
+        <Caret Line="296" Column="4" TopLine="283"/>
       </Position6>
       <Position7>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="283" Column="9" TopLine="277"/>
+        <Caret Line="303" Column="5" TopLine="287"/>
       </Position7>
       <Position8>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="282" Column="9" TopLine="276"/>
+        <Caret Line="302" Column="5" TopLine="286"/>
       </Position8>
       <Position9>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="203" Column="28" TopLine="187"/>
+        <Caret Line="291" Column="5" TopLine="273"/>
       </Position9>
       <Position10>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="341" Column="5" TopLine="318"/>
+        <Caret Line="209" Column="27" TopLine="205"/>
       </Position10>
       <Position11>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="84" Column="7" TopLine="70"/>
+        <Caret Line="308" Column="10" TopLine="293"/>
       </Position11>
       <Position12>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="77" Column="25" TopLine="69"/>
+        <Caret Line="314" Column="7" TopLine="298"/>
       </Position12>
       <Position13>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="194" Column="40" TopLine="185"/>
+        <Caret Line="324" Column="3" TopLine="311"/>
       </Position13>
       <Position14>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="231" Column="3" TopLine="222"/>
+        <Caret Line="7" Column="12" TopLine="1"/>
       </Position14>
       <Position15>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="91" Column="32" TopLine="76"/>
+        <Caret Line="162" Column="48" TopLine="139"/>
       </Position15>
       <Position16>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="43" Column="42" TopLine="18"/>
+        <Caret Line="163" Column="28" TopLine="162"/>
       </Position16>
       <Position17>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="118" Column="4" TopLine="92"/>
+        <Caret Line="211" Column="26" TopLine="190"/>
       </Position17>
       <Position18>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="91" Column="36" TopLine="78"/>
+        <Caret Line="305" Column="49" TopLine="283"/>
       </Position18>
       <Position19>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="43" Column="42" TopLine="21"/>
+        <Caret Line="306" Column="32" TopLine="284"/>
       </Position19>
       <Position20>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="276" Column="7" TopLine="254"/>
+        <Caret Line="7" Column="21" TopLine="1"/>
       </Position20>
       <Position21>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="266" Column="23" TopLine="253"/>
+        <Caret Line="10" Column="31" TopLine="1"/>
       </Position21>
       <Position22>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="261" Column="14" TopLine="253"/>
+        <Caret Line="307" Column="32" TopLine="285"/>
       </Position22>
       <Position23>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="271" Column="41" TopLine="144"/>
+        <Caret Line="8" Column="33" TopLine="1"/>
       </Position23>
       <Position24>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="270" Column="41" TopLine="244"/>
+        <Caret Line="308" Column="45" TopLine="286"/>
       </Position24>
       <Position25>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="248" Column="12" TopLine="233"/>
+        <Caret Line="309" Column="49" TopLine="287"/>
       </Position25>
       <Position26>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="243" Column="27" TopLine="230"/>
+        <Caret Line="322" Column="16" TopLine="300"/>
       </Position26>
       <Position27>
         <Filename Value="pekseso.pas"/>
-        <Caret Line="240" Column="28" TopLine="228"/>
+        <Caret Line="333" Column="28" TopLine="319"/>
       </Position27>
-      <Position28>
-        <Filename Value="pekseso.pas"/>
-        <Caret Line="244" Column="40" TopLine="231"/>
-      </Position28>
-      <Position29>
-        <Filename Value="pekseso.pas"/>
-        <Caret Line="41" Column="48" TopLine="28"/>
-      </Position29>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -260,6 +263,9 @@
         <StackChecks Value="True"/>
       </Checks>
       <VerifyObjMethodCallValidity Value="True"/>
+      <Optimizations>
+        <OptimizationLevel Value="3"/>
+      </Optimizations>
     </CodeGeneration>
     <Linking>
       <Options>

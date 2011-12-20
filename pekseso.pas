@@ -18,6 +18,8 @@ type
     Button3: TButton;
     Button4: TButton;
     Button5: TButton;
+    Button6: TButton;
+    Button7: TButton;
     CheckBox1: TCheckBox;
     Edit1: TEdit;
     Edit2: TEdit;
@@ -28,6 +30,7 @@ type
     StaticText2: TStaticText;
     StaticText3: TStaticText;
     StaticText4: TStaticText;
+    StaticText5: TStaticText;
     Timer1: TTimer;
     Timer2: TTimer;
     TrackBar1: TTrackBar;
@@ -36,6 +39,8 @@ type
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
+    procedure Button6Click(Sender: TObject);
+    procedure Button7Click(Sender: TObject);
     procedure CheckBox1Change(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Image1MouseDown(Sender: TObject; Button: TMouseButton;
@@ -53,16 +58,11 @@ type
 var
   Form1: TForm1;
   Pexeso: TPlocha;
-  Obr, Obr1: TBitmap;
+  Obr: TBitmap;
   Povolenie, HrajeSa : boolean;
   Cas: Integer;
-  Info: array[1..3] of integer;
 
 implementation
-
-
-Uses
-  SettingUnit;
 {$R *.lfm}
 
 { TForm1 }
@@ -158,8 +158,8 @@ end;
 
 procedure TForm1.TrackBar1Change(Sender: TObject);
 begin
- Timer1.Interval := TrackBar1.Position*100;
- Edit2.Text := inttostr(TrackBar1.Position*100);
+  Timer1.Interval:= Trackbar1.Position*100;
+  Edit2.Text := IntToStr(Trackbar1.Position*100);
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
@@ -174,14 +174,13 @@ begin
   Button2.Enabled:= True;
   Button4.Visible  := True;
   Button4.Enabled  := True;
-  Obr1:= Tbitmap.Create;
-  Obr1.LoadFromFile('img/karta.bmp');
-  Pexeso.Nakresli(Image1.Canvas, Obr1);
+  Pexeso.Nakresli(Image1.Canvas);
   Pexeso.Zamiesaj;
   Pexeso.Napoveda(Image1.Canvas);
-  Info[1] := 120;
+  Info[1] := StrToInt(Edit4.Text);
   Info[2] := 0;
   Info[3] := 0;
+  Edit3.Text := IntToStr(Info[1]);
   Casovac;
 end;
 
@@ -199,21 +198,20 @@ begin
   StaticText2.Visible := False;
   StaticText3.Visible := True;
   StaticText4.Visible := True;
+  StaticText5.Visible := True;
   TrackBar1.Visible:= True;
   TrackBar1.Position:= Timer1.Interval div 100;
   CheckBox1.Visible:= True;
   Button1.Enabled:= False;
   Button3.Enabled:= False;
-  Button4.Visible:= False;
+  Button4.Enabled:= False;
   Button5.Visible:= True;
+  Button6.Visible:= True;
+  Button7.Visible:= True;
   Timer2.Enabled:= False;
 end;
 
 procedure TForm1.Button3Click(Sender: TObject);
-var
-Subor: TextFile;
-i,j,Obrazok: integer;
-Nasiel: string;
 begin
   if FileExists('save.txt') then
    begin
@@ -228,24 +226,8 @@ begin
     Button4.Visible:= True;
     Button4.Enabled:= True;
     Casovac;
-    Obr1:= Tbitmap.Create;
-    Obr1.LoadFromFile('img/karta.bmp');
-    Pexeso.Nakresli(Image1.Canvas, Obr1);
-
-    AssignFile(Subor, 'save.txt');
-    Reset(subor);
-     for i:= 0 to 4 do
-      for j:= 0 to 9 do
-       begin
-        Read(Subor, Obrazok);
-        ReadLn(Subor, Nasiel);
-        Karta[i][j].Typ:= Obrazok;
-        Karta[i][j].Zobrazene:= False;
-        Karta[i][j].Najdene:= StrToBool(Nasiel);
-       end;
-     for i:= 1 to 3 do
-       Read(Subor, Info[i]);
-    CloseFile(subor);
+    Pexeso.Nakresli(Image1.Canvas);
+    Pexeso.Nahraj;
     Pexeso.VymazNacitane(Image1.Canvas);
     Edit1.Text:=IntToStr(Info[2]);
     Edit3.Text:=IntToStr(Info[1]);
@@ -255,27 +237,8 @@ begin
 end;
 
 procedure TForm1.Button4Click(Sender: TObject);
-var
-i,j: integer;
-Subor: TextFile;
 begin
-  if Info[3] < 50 then
-   begin
-    AssignFile(Subor, 'save.txt');
-    rewrite(Subor);
-    for j := 0 to 4 do
-     for i := 0 to 9 do
-      begin
-       write(Subor, Karta[j][i].Typ, ' ');
-       writeln(Subor, BoolToStr(Karta[j][i].Najdene));
-      end;
-    for i:=1 to 3 do
-     write(Subor, Info[i], ' ');
-    CloseFile(Subor);
-    ShowMessage('Úšpešne uložené');
-   end
-  else
-   ShowMessage('Nedá sa uložiť');
+  Pexeso.Uloz;
 end;
 
 procedure TForm1.Button5Click(Sender: TObject);
@@ -285,11 +248,14 @@ begin
   Edit4.Visible:= False;
   StaticText3.Visible := False;
   StaticText4.Visible := False;
+  StaticText5.Visible := False;
   TrackBar1.Visible:= False;
   CheckBox1.Visible:= False;
   Button1.Enabled:= True;
   Button3.Enabled:= True;
   Button5.Visible:= False;
+  Button6.Visible:= False;
+  Button7.Visible:= False;
   Info[1]:= StrToInt(Edit4.Text);
   Edit1.Text:=IntToStr(Info[2]);
   Edit3.Text:=IntToStr(Info[1]);
@@ -300,10 +266,8 @@ begin
     Edit3.Visible:= True;
     StaticText1.Visible := True;
     StaticText2.Visible := True;
-    Button4.Visible:= True;
-    Obr1:= Tbitmap.Create;
-    Obr1.LoadFromFile('img/karta.bmp');
-    Pexeso.Nakresli(Image1.Canvas, Obr1);
+    Button4.Enabled:= True;
+    Pexeso.Nakresli(Image1.Canvas);
     Pexeso.VymazNacitane(Image1.Canvas);
     Casovac;
    end
@@ -320,6 +284,48 @@ begin
       Obr.Free;
     end;
    end;
+end;
+
+procedure TForm1.Button6Click(Sender: TObject);
+var
+  Subor: TextFile;
+  i: integer;
+  Nastavenia: String;
+begin
+  if FileExists('nastavenie.txt') then
+   begin
+    AssignFile(Subor, 'nastavenie.txt');
+    Reset(Subor);
+    for i:= 1 to 3 do
+     begin
+     readln(Subor, Nastavenia);
+     Nastavenie[i]:= Nastavenia;
+     end;
+    CloseFile(Subor);
+    TrackBar1.Position := StrToInt(Nastavenie[1]) div 100;
+    Edit2.Text := Nastavenie[1];
+    Edit4.Text := Nastavenie[2];
+    Edit4.Enabled := StrToBool(Nastavenie[3]);
+    CheckBox1.Checked := StrToBool(Nastavenie[3]);
+   end
+  else
+    ShowMessage('Neboli nájdené uložené nastavenia!');
+end;
+
+procedure TForm1.Button7Click(Sender: TObject);
+var
+  Subor: TextFile;
+  i: integer;
+begin
+  Nastavenie[1]:= IntToStr(Trackbar1.Position*100);
+  Nastavenie[2]:= Edit4.Text;
+  Nastavenie[3]:= BoolToStr(CheckBox1.Checked);
+  AssignFile(Subor, 'nastavenie.txt');
+  Rewrite(Subor);
+  for i:=1 to 3 do
+   writeln(Subor, Nastavenie[i]);
+  ShowMessage('Nastavenie uložené!');
+  CloseFile(Subor);
 end;
 
 procedure TForm1.CheckBox1Change(Sender: TObject);
