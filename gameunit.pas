@@ -13,13 +13,19 @@ type
     Typ: integer;
     Zobrazene, Najdene: boolean;
   end;
+  TFinals = record
+    Body: Integer;
+    Meno: String;
+  end;
   TKarty = array[0..4] of array[0..9] of TKarta;
+  TFinale = array[1..11] of TFinals;
 
 var
   Karta: TKarty;
   pocet, pom, pom1, X, Y: integer;
   Info: array[1..3] of integer;
   Nastavenie: array[1..3] of String;
+  Final: TFinale;
 
 { TPlocha }
 type
@@ -34,9 +40,10 @@ type
     procedure Ukaz(Card,X,Y: Integer; Image: TCanvas);
     procedure VymazNacitane(Image: TCanvas);
     procedure Uloz;
-    procedure Uloz(Mode: Integer);
     Procedure Nahraj;
-    Procedure Nahraj(Mode: Integer);
+    procedure UlozSkore;
+    Procedure NahrajSkore;
+    procedure Skore;
     function Parny(a,b : Integer): boolean;
   end;
 
@@ -196,13 +203,6 @@ begin
    ShowMessage('Nedá sa uložiť');
 end;
 
-procedure TPlocha.Uloz(Mode: Integer);
-var
-  Subor: TextFile;
-begin
- //nic
-end;
-
 procedure TPlocha.Nahraj;
 var
   Subor: TextFile;
@@ -226,9 +226,84 @@ begin
   CloseFile(subor);
 end;
 
-procedure TPlocha.Nahraj(Mode: Integer);
+procedure TPlocha.UlozSkore;
+var
+  i: integer;
+  Subor: TextFile;
 begin
-  //nic
+  AssignFile(Subor, 'skore.txt');
+  Rewrite(Subor);
+  for i:=1 to 10 do
+   begin
+     write(Subor, Final[i].Body, ' ');
+     writeln(Subor, Final[i].Meno);
+   end;
+  CloseFile(Subor);
+end;
+
+procedure TPlocha.NahrajSkore;
+var
+  i: integer;
+  medzera: char;
+  Subor: TextFile;
+begin
+  if FileExists('skore.txt') then
+   begin
+    AssignFile(Subor, 'skore.txt');
+    Reset(Subor);
+    for i:=1 to 10 do
+     begin
+      read(Subor, Final[i].Body);
+      read(Subor, medzera);
+      readln(Subor, Final[i].Meno);
+     end;
+    CloseFile(Subor);
+   end
+  else
+  ShowMessage('Žiadne skore sa nenašlo');
+
+end;
+
+procedure TPlocha.Skore;
+var
+  pomoc, i: Integer;
+begin
+ NahrajSkore;
+ for i:=1 to 10 do
+  begin
+   if Final[i].Meno = '' then
+    begin
+     Final[i].Body := 0;
+     Final[i].Meno := '-nikto-';
+    end;
+  end;
+ Final[11].Body:= Info[2];
+ for i:=10 downto 1 do
+  begin
+   if Final[i].Body = 0 then
+    begin
+     if (Final[i].Body < Final[i+1].Body) then
+      begin
+       pomoc := Final[i].Body;
+       Final[i].Body := Final[i+1].Body;
+       Final[i+1].Body := pomoc;
+       Final[i].Meno := '-nikto-';
+      end;
+    end
+   else
+   begin
+    if (Final[i].Body > Final[i+1].Body) then
+     begin
+      pomoc := Final[i].Body;
+      Final[i].Body := Final[i+1].Body;
+      Final[i+1].Body := pomoc;
+      Final[i].Meno := '-nikto-';
+     end;
+   end;
+  end;
+ UlozSkore;
+
+
 end;
 
 end.

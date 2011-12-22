@@ -124,22 +124,26 @@ begin
    begin
     Pexeso.Odber(pom, Image1.Canvas);
     pocet:= 0;
+    Info[2] := Info[2] +1;
     Info[3] := Info[3]+2;
+    povolenie := True;
+    Edit1.Text := inttostr(Info[2]);
     if Info[3] = 50 then
      begin
       Timer2.Enabled:=False;
       Button4.Enabled:=False;
-      ShowMessage('Vyhrali ste, SKORE: ' + IntToStr(Info[2]+1));
+      ShowMessage('Vyhrali ste, SKORE: ' + IntToStr(Info[2]));
+      Pexeso.Skore;
      end;
-   end
-  else
-   begin
-    Pexeso.Naspat(Image1.Canvas);
-    pocet:= 0;
-   end;
-   povolenie := True;
-   Info[2] := Info[2] +1;
-   Edit1.Text := inttostr(Info[2]);
+    end
+   else
+    begin
+     Pexeso.Naspat(Image1.Canvas);
+     pocet:= 0;
+     Info[2] := Info[2] +1;
+     Edit1.Text := inttostr(Info[2]);
+     povolenie := True;
+    end;
 end;
 
 procedure TForm1.Timer2Timer(Sender: TObject);
@@ -180,6 +184,7 @@ begin
   Info[1] := StrToInt(Edit4.Text);
   Info[2] := 0;
   Info[3] := 0;
+  Edit1.Text := IntToStr(Info[2]);
   Edit3.Text := IntToStr(Info[1]);
   Casovac;
 end;
