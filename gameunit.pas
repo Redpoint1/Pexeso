@@ -12,6 +12,7 @@ type
   TKarta = record
     Typ: integer;
     Zobrazene, Najdene: boolean;
+    Hrac: Integer;
   end;
   TFinals = record
     Body: Integer;
@@ -23,15 +24,15 @@ type
 var
   Karta: TKarty;
   pocet, pom, pom1, X, Y: integer;
-  Info: array[1..3] of integer;
-  Nastavenie: array[1..3] of String;
+  Info, Player: array[1..3] of integer;
+  Nastavenie: array[1..5] of String;
+  Narade: Integer;
   Final: TFinale;
 
-{ TPlocha }
+{ THra }
 type
 
-  TPlocha = class
-    procedure Nakresli(Image: TCanvas);
+  THra = class
     procedure Vytvor;
     procedure Zamiesaj;
     procedure Odber(Card: Integer; Image: TCanvas);
@@ -49,7 +50,7 @@ type
 
 implementation
 
-procedure TPlocha.Vytvor;
+procedure Thra.Vytvor;
 var
   i, j: integer;
 begin
@@ -60,11 +61,12 @@ begin
       Karta[j][i].Typ := (j*10+i) div 2;
       Karta[j][i].Zobrazene := False;
       Karta[j][i].Najdene := False;
+      Karta[j][i].Hrac := 0;
     end;
   end;
 end;
 
-procedure TPlocha.Zamiesaj;
+procedure THra.Zamiesaj;
 var
   x, y: integer;
   rand_x, rand_y: integer;
@@ -83,28 +85,7 @@ begin
     end;
 end;
 
-procedure TPlocha.Nakresli(Image: TCanvas);
-var
-  X, Y: integer;
-  Bmp: TBitmap;
-begin
-  Bmp:= Tbitmap.Create;
-  Bmp.LoadFromFile('img/karta.bmp');
-  Y := 0;
-  while Y < 5 do
-  begin
-    X := 0;
-    while X < 10 do
-    begin
-      Image.Draw(X*80+5, Y*100+5, Bmp);
-      Inc(X);
-    end;
-    Inc(Y);
-  end;
-  Bmp.Free;
-end;
-
-procedure TPlocha.Odber(Card:Integer; Image:TCanvas);
+procedure THra.Odber(Card:Integer; Image:TCanvas);
 var
   i,j: integer;
 begin
@@ -116,12 +97,13 @@ begin
       begin
       Karta[i][j].Zobrazene := False;
       Karta[i][j].Najdene := True;
+      Karta[i][j].Hrac := NaRade;
       Image.Rectangle(j * 80 + 5, i * 100 + 5, j * 80 + 85, i * 100 + 105);
       end;
     end;
 end;
 
-procedure TPlocha.Naspat(Image: TCanvas);
+procedure THra.Naspat(Image: TCanvas);
 var
   i, j: integer;
   Bmp: TBitmap;
@@ -140,12 +122,12 @@ begin
     end;
 end;
 
-function TPlocha.Parny(a, b:integer): boolean;
+function THra.Parny(a, b:integer): boolean;
 begin
   Result := (a = b);
 end;
 
-procedure TPlocha.Napoveda(Image: TCanvas);
+procedure THra.Napoveda(Image: TCanvas);
 var
   i,j: integer;
 begin
@@ -154,7 +136,7 @@ begin
   Image.TextOut((j * 80) + 5, (i * 100) + 5, inttostr(Karta[i][j].Typ));
 end;
 
-procedure TPlocha.Ukaz(Card,X,Y: Integer; Image: TCanvas);
+procedure THra.Ukaz(Card,X,Y: Integer; Image: TCanvas);
 var
   Bmp:TBitmap;
 begin
@@ -164,7 +146,7 @@ begin
    Bmp.Free;
 end;
 
-procedure TPlocha.VymazNacitane(Image: TCanvas);
+procedure THra.VymazNacitane(Image: TCanvas);
 var
   i,j: integer;
 begin
@@ -179,7 +161,7 @@ begin
     end;
 end;
 
-procedure TPlocha.Uloz;
+procedure THra.Uloz;
 var
   Subor: TextFile;
   i,j: Integer;
@@ -203,7 +185,7 @@ begin
    ShowMessage('Nedá sa uložiť');
 end;
 
-procedure TPlocha.Nahraj;
+procedure THra.Nahraj;
 var
   Subor: TextFile;
   Nasiel: string;
@@ -226,7 +208,7 @@ begin
   CloseFile(subor);
 end;
 
-procedure TPlocha.UlozSkore;
+procedure THra.UlozSkore;
 var
   i: integer;
   Subor: TextFile;
@@ -241,7 +223,7 @@ begin
   CloseFile(Subor);
 end;
 
-procedure TPlocha.NahrajSkore;
+procedure THra.NahrajSkore;
 var
   i: integer;
   medzera: char;
@@ -258,15 +240,13 @@ begin
       readln(Subor, Final[i].Meno);
      end;
     CloseFile(Subor);
-   end
-  else
-  ShowMessage('Žiadne skore sa nenašlo');
-
+   end;
 end;
 
-procedure TPlocha.Skore;
+procedure THra.Skore;
 var
   pomoc, i: Integer;
+  dalsiapom: String;
 begin
  NahrajSkore;
  for i:=1 to 10 do
@@ -278,26 +258,28 @@ begin
     end;
   end;
  Final[11].Body:= Info[2];
+ Final[11].Meno:= Nastavenie[4];
  for i:=10 downto 1 do
   begin
-   if Final[i].Body = 0 then
+   if (Final[i].Body = 0) AND (Final[i].Body < Final[i+1].Body) then
     begin
-     if (Final[i].Body < Final[i+1].Body) then
-      begin
        pomoc := Final[i].Body;
+       dalsiapom := Final[i].Meno;
        Final[i].Body := Final[i+1].Body;
+       Final[i].Meno := Final[i+1].Meno;
        Final[i+1].Body := pomoc;
-       Final[i].Meno := '-nikto-';
-      end;
+       Final[i+1].Meno := dalsiapom;
     end
    else
    begin
     if (Final[i].Body > Final[i+1].Body) then
      begin
       pomoc := Final[i].Body;
+      dalsiapom := Final[i].Meno;
       Final[i].Body := Final[i+1].Body;
+      Final[i].Meno := Final[i+1].Meno;
       Final[i+1].Body := pomoc;
-      Final[i].Meno := '-nikto-';
+      Final[i+1].Meno := dalsiapom;
      end;
    end;
   end;

@@ -1,0 +1,30 @@
+1 Úvod
+Program Pexeso je naprogramovanı v Lazaruse, ktorı bol vytvorenı na zadanú tému "Pexeso" ako semestrálny projekt na PROGRAMOVANIE I. vo FMFI UK, aplikovaná informatika.
+Program bol vyvıjanı študentom FMFI UK Richard Roár, ktorı bez akıchko¾vek cudzích algoritmov, kódov èi komponentov vytvoril tento program.
+
+2 Inštrukcie
+Program je plne funkènı iba v tom prípade ,ak máte pexeso.exe súbor a zloku "img" v tom istom adresári (vrátane súborov zloky "img")
+
+3 Návod
+Po otvorení programu vám naskoèí úvodná obrazovka programu. Máte na vıber z viacerıch moností:
+
+3.1 Nová hra
+Spustí vám hru ,ktorá je prednastavená pre 1-ho hráèa.
+
+3.1.1 Hra pre 1-ného
+Ak máte nastavenı reim pre 1-ho hráèe máte prístupné všetkyx funkcie SKORE, ULOENIE, NAHRANIE.
+
+3.1.2 Hra pre viacerıch hráèov
+Ak máte nastavenú hru pre viacerıch hráèov máte zonrazené veškım èervenım písmom kto je na ahu. Pod ním zase máte skore všetkıch hráèov. U tochto reimu nemáte monos su uloi SKORE ani hru ,èi vôbec naèíta.
+
+3.2 Nastavenie
+Nastavenie rôznych parametrov hry ,ktoré môete upravi. Samozrejme je tu aj ,onos uloi a nahra nastavenie.
+
+3.3 Nahra
+Program vám nahrá uloenú hru.
+
+3.4 Uloi
+Program vám uloá rozohranú hru.
+
+3.5 Skore
+Zoznam 10-tich najlepších hráèov ,ktorí našli všetky párové pexesá za èo najmenší poèet ahov nezávislı na èase. 

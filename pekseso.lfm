@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 269
+  Left = 339
   Height = 513
-  Top = 149
+  Top = 16
   Width = 936
   Caption = 'Form1'
   ClientHeight = 513
@@ -32,7 +32,7 @@ object Form1: TForm1
     Height = 25
     Top = 88
     Width = 75
-    Caption = 'Nastavenia'
+    Caption = 'Nastavenie'
     OnClick = Button2Click
     TabOrder = 1
   end
@@ -120,7 +120,7 @@ object Form1: TForm1
   object Button5: TButton
     Left = 376
     Height = 25
-    Top = 440
+    Top = 448
     Width = 75
     Caption = 'OK'
     OnClick = Button5Click
@@ -195,6 +195,138 @@ object Form1: TForm1
     TabOrder = 17
     Visible = False
   end
+  object Button8: TButton
+    Left = 840
+    Height = 25
+    Top = 448
+    Width = 75
+    Caption = 'Skore'
+    OnClick = Button8Click
+    TabOrder = 18
+  end
+  object Memo1: TMemo
+    Left = 240
+    Height = 330
+    Top = 88
+    Width = 219
+    Alignment = taCenter
+    BorderStyle = bsNone
+    Font.CharSet = EASTEUROPE_CHARSET
+    Font.Height = -13
+    Font.Name = 'Microsoft Sans Serif'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Lines.Strings = (
+      'Memo1'
+    )
+    ParentFont = False
+    TabOrder = 19
+    Visible = False
+  end
+  object Memo2: TMemo
+    Left = 464
+    Height = 330
+    Top = 88
+    Width = 48
+    Alignment = taCenter
+    BorderStyle = bsNone
+    Font.CharSet = EASTEUROPE_CHARSET
+    Font.Height = -13
+    Font.Name = 'Microsoft Sans Serif'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Lines.Strings = (
+      'Memo'
+      '2'
+    )
+    ParentFont = False
+    TabOrder = 20
+    Visible = False
+  end
+  object StaticText6: TStaticText
+    Left = 56
+    Height = 17
+    Top = 136
+    Width = 65
+    Caption = 'Meno:'
+    TabOrder = 21
+    Visible = False
+  end
+  object Edit5: TEdit
+    Left = 81
+    Height = 23
+    Top = 160
+    Width = 80
+    MaxLength = 20
+    TabOrder = 22
+    Text = 'Hráč'
+    Visible = False
+  end
+  object StaticText7: TStaticText
+    Left = 56
+    Height = 17
+    Top = 192
+    Width = 81
+    Caption = 'Počet hráčov:'
+    TabOrder = 23
+    Visible = False
+  end
+  object TrackBar2: TTrackBar
+    Left = 81
+    Height = 25
+    Top = 208
+    Width = 81
+    Max = 3
+    Min = 1
+    OnChange = TrackBar2Change
+    Position = 1
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 24
+    Visible = False
+  end
+  object Edit6: TEdit
+    Left = 168
+    Height = 23
+    Top = 210
+    Width = 24
+    Alignment = taCenter
+    ReadOnly = True
+    TabOrder = 25
+    Text = '1'
+    Visible = False
+  end
+  object Label1: TLabel
+    Left = 832
+    Height = 24
+    Top = 336
+    Width = 75
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'Hráč1'
+    Font.CharSet = EASTEUROPE_CHARSET
+    Font.Color = clRed
+    Font.Height = -16
+    Font.Name = 'Microsoft Sans Serif'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    ParentColor = False
+    ParentFont = False
+    Visible = False
+  end
+  object Memo3: TMemo
+    Left = 829
+    Height = 74
+    Top = 368
+    Width = 83
+    Alignment = taCenter
+    BorderStyle = bsNone
+    Lines.Strings = (
+      'Memo3'
+    )
+    TabOrder = 26
+    Visible = False
+  end
   object Timer1: TTimer
     Enabled = False
     OnTimer = Timer1Timer
@@ -205,6 +337,13 @@ object Form1: TForm1
     Enabled = False
     OnTimer = Timer2Timer
     left = 864
+    top = 472
+  end
+  object Timer3: TTimer
+    Enabled = False
+    Interval = 1
+    OnTimer = Timer3Timer
+    left = 824
     top = 472
   end
 end
